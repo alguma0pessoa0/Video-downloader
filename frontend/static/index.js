@@ -24,6 +24,13 @@
     msg.className = 'msg' + (isError ? ' error' : '');
   }
 
+  if (!apiBaseIsConfigured()) {
+    showMsg(
+      'Aviso: o backend não está configurado. Edite window.API_BASE nos arquivos index.html e status.html com a URL do seu backend (ex.: https://seuapp.onrender.com).',
+      true
+    );
+  }
+
   function reset() {
     btnDownload.disabled = true;
     qualitySelect.disabled = true;
@@ -69,8 +76,14 @@
       resultPlaylist.textContent = t + '.';
     }
 
-    resultSize.hidden = !data.size_est;
-    if (data.size_est) resultSize.textContent = 'Tamanho estimado: ' + fmtBytes(data.size_est);
+    const notes = [];
+    if (data.size_est) notes.push('Tamanho estimado (melhor qualidade): ' + fmtBytes(data.size_est));
+    if (data.oversized) {
+      const limitMb = Math.round((data.size_limit || 0) / 1024 / 1024);
+      notes.push(`a "Melhor qualidade" passa do limite (${limitMb} MB) — escolha uma qualidade menor acima.`);
+    }
+    resultSize.hidden = notes.length === 0;
+    resultSize.textContent = notes.length ? notes.join('. ') + '.' : '';
 
     if (data.thumbnail) {
       resultThumb.src = data.thumbnail;
