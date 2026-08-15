@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Download de Vídeos</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="/">yt-dlp Downloader</a>
+      <nav>
+        <a href="/">Início</a>
+        <a href="/supported-sites">Sites suportados</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    
+<section class="card">
+  <h1>Baixar vídeo ou áudio</h1>
+  <p class="muted">Cole o link de um site suportado, escolha o tipo e a qualidade. O arquivo fica disponível por <strong>10 minutos</strong>.</p>
+  <form id="inspect-form">
+    <label for="url">URL</label>
+    <input type="text" id="url" name="url" placeholder="https://..." required autofocus>
+    <div class="row">
+      <div>
+        <label for="media_type">Tipo</label>
+        <select id="media_type" name="media_type">
+          <option value="video">Vídeo</option>
+          <option value="audio">Áudio</option>
+        </select>
+      </div>
+      <div>
+        <label for="quality">Qualidade</label>
+        <select id="quality" name="quality" disabled>
+          <option value="">Analise o link primeiro</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <button type="submit" id="btn-analyze" class="btn btn-primary">Analisar link</button>
+      <button type="button" id="btn-download" class="btn btn-success" disabled>Baixar</button>
+    </div>
+  </form>
+  <p id="form-msg" class="msg" hidden></p>
+</section>
+
+<section id="result" class="card" hidden>
+  <h2 id="result-title"></h2>
+  <div class="result-meta">
+    <img id="result-thumb" alt="" hidden>
+    <div>
+      <p id="result-type"></p>
+      <p id="result-playlist" class="muted" hidden></p>
+      <p id="result-size" class="muted" hidden></p>
+    </div>
+  </div>
+  <p id="result-error" class="error" hidden></p>
+</section>
+
+<section class="card">
+  <h2>Como funciona</h2>
+  <ol>
+    <li>Cole o link de um vídeo ou áudio.</li>
+    <li>Escolha vídeo ou áudio e analise o link.</li>
+    <li>Escolha a qualidade e clique em baixar.</li>
+    <li>O arquivo fica disponível por 10 minutos e depois é apagado do servidor.</li>
+  </ol>
+</section>
+
+  </main>
+  
+<script>
+  window.STATUS_POLL_MS = 1500;
+  window.MAX_PLAYLIST_ITEMS = 50;
+  window.STATUS_PATH = "status.html?job=";
+  window.API_BASE = "URL_DO_BACKEND"; /* troque pela URL do seu backend Flask */
+</script>
+<script src="/static/app.js"></script>
+<script src="/static/index.js"></script>
+
+</body>
+</html>

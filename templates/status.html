@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Status do download{% endblock %}
+{% block content %}
+<section class="card" id="status-card" data-job-id="{{ job_id }}">
+  <h1 id="status-title">Status do download</h1>
+  <div class="progress">
+    <div class="progress-bar" id="status-bar" style="width:0%"></div>
+  </div>
+  <p id="status-msg" class="muted">Carregando...</p>
+
+  <div id="status-ready" hidden>
+    <p class="ok">Download concluído!</p>
+    <p class="muted">O arquivo será removido do servidor em <strong id="countdown">10:00</strong>.</p>
+    <div class="row">
+      <a id="download-link" class="btn btn-primary" href="">Baixar arquivo</a>
+      <a class="btn" href="{{ url_for('index') }}">Novo download</a>
+    </div>
+    <p id="status-files" class="muted"></p>
+  </div>
+
+  <div id="status-error" hidden>
+    <p class="error" id="status-error-msg"></p>
+    <a class="btn" href="{{ url_for('index') }}">Tentar novamente</a>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+<script src="{{ url_for('static', filename='status.js') }}"></script>
+{% endblock %}

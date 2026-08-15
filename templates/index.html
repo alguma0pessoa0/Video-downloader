@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}Download de Vídeos{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Baixar vídeo ou áudio</h1>
+  <p class="muted">Cole o link de um site suportado, escolha o tipo e a qualidade. O arquivo fica disponível por <strong>{{ file_ttl_minutes }} minutos</strong>.</p>
+  <form id="inspect-form">
+    <label for="url">URL</label>
+    <input type="text" id="url" name="url" placeholder="https://..." required autofocus>
+    <div class="row">
+      <div>
+        <label for="media_type">Tipo</label>
+        <select id="media_type" name="media_type">
+          <option value="video">Vídeo</option>
+          <option value="audio">Áudio</option>
+        </select>
+      </div>
+      <div>
+        <label for="quality">Qualidade</label>
+        <select id="quality" name="quality" disabled>
+          <option value="">Analise o link primeiro</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <button type="submit" id="btn-analyze" class="btn btn-primary">Analisar link</button>
+      <button type="button" id="btn-download" class="btn btn-success" disabled>Baixar</button>
+    </div>
+  </form>
+  <p id="form-msg" class="msg" hidden></p>
+</section>
+
+<section id="result" class="card" hidden>
+  <h2 id="result-title"></h2>
+  <div class="result-meta">
+    <img id="result-thumb" alt="" hidden>
+    <div>
+      <p id="result-type"></p>
+      <p id="result-playlist" class="muted" hidden></p>
+      <p id="result-size" class="muted" hidden></p>
+    </div>
+  </div>
+  <p id="result-error" class="error" hidden></p>
+</section>
+
+<section class="card">
+  <h2>Como funciona</h2>
+  <ol>
+    <li>Cole o link de um vídeo ou áudio.</li>
+    <li>Escolha vídeo ou áudio e analise o link.</li>
+    <li>Escolha a qualidade e clique em baixar.</li>
+    <li>O arquivo fica disponível por {{ file_ttl_minutes }} minutos e depois é apagado do servidor.</li>
+  </ol>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+  window.STATUS_POLL_MS = 1500;
+  window.MAX_PLAYLIST_ITEMS = {{ max_playlist_items }};
+  window.API_BASE = "";
+  window.STATUS_PATH = "/status/";
+</script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+<script src="{{ url_for('static', filename='index.js') }}"></script>
+{% endblock %}

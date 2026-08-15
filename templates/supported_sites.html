@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Sites suportados{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Sites suportados pelo yt-dlp</h1>
+  <p class="muted">
+    {{ count }} extractors instalados
+    {%- if broken %} ({{ broken }} com problemas conhecidos){% endif %}.
+    Nem todos funcionam garantidamente — sites mudam com frequência.
+  </p>
+  <input type="search" id="site-filter" placeholder="Filtrar (ex.: youtube, vimeo, tiktok...)" autofocus>
+  <p id="site-count" class="muted"></p>
+  <ul id="site-list" class="site-list"></ul>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+  window.SITES = {{ sites|tojson }};
+</script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+<script src="{{ url_for('static', filename='sites.js') }}"></script>
+{% endblock %}

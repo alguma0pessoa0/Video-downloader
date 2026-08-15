@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+downloads/
+frontend/
+.git/
+.DS_Store
